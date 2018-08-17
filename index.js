@@ -15,9 +15,9 @@ var internals = {};
 // we support _escaped_fragment_ and want to ensure people aren't
 // penalized for cloaking.
 internals.crawlerUserAgents = [
-  // 'googlebot',
-  // 'yahoo',
-  // 'bingbot',
+  'googlebot',
+  'yahoo',
+  'bingbot',
   'facebot',
   'slackbot',
   'baiduspider',
@@ -92,7 +92,7 @@ internals.shouldShowPrerenderedPage = function (req) {
   var knownBot = internals.crawlerUserAgents.some(function (crawlerUserAgent) {
     return userAgent.toLowerCase().indexOf(crawlerUserAgent.toLowerCase()) !== -1;
   });
-  
+
   if (knownBot) { isRequestingPrerenderedPage = true; }
 
   //if it is BufferBot...show prerendered page
@@ -221,7 +221,7 @@ exports.register = function (server, options, next) {
       if (!err && cached && typeof cached.body === 'string') {
         return sendResponse(cached);
       }
-    
+
       getPrerenderedPageResponse(req, function (err, resp) {
         if (err) {
           console.error('Error getting prerendered page.');
@@ -249,4 +249,3 @@ exports.register = function (server, options, next) {
 exports.register.attributes = {
   pkg: require('./package.json')
 };
-
