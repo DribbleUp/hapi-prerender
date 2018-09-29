@@ -30,7 +30,8 @@ internals.crawlerUserAgents = [
   'showyoubot',
   'outbrain',
   'pinterest',
-  'developers.google.com/+/web/snippet'
+  'developers.google.com/+/web/snippet',
+  'Google Page Speed'
 ];
 
 internals.extensionsToIgnore = [
