@@ -115,8 +115,14 @@ internals.shouldShowPrerenderedPage = function (req) {
 // Public API
 //
 
-exports.register = function (server, options, next) {
+const plugin = {
+  name: 'prerender',
+  version: '1.0.0',
+  pkg: require('./package.json'),
+};
 
+plugin.register = function (server, options, next) {
+    console.log('bepe')
   var settings = Hoek.applyToDefaults({
     serviceUrl: process.env.PRERENDER_SERVICE_URL || 'http://service.prerender.io/',
     token: process.env.PRERENDER_TOKEN,
@@ -206,7 +212,7 @@ exports.register = function (server, options, next) {
       });
   }
 
-  server.ext('onRequest', function (req, reply) {
+  server.ext('onRequest', (req, reply) => {
     // Only handle requests with _escaped_fragment_ query param.
     if (!internals.shouldShowPrerenderedPage(req)) { return reply.continue(); }
 
@@ -247,6 +253,4 @@ exports.register = function (server, options, next) {
 
 };
 
-exports.register.attributes = {
-  pkg: require('./package.json')
-};
+module.exports = plugin;
